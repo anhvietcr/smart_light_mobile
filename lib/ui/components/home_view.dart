@@ -4,7 +4,8 @@ import 'package:smart_light/core/models/home_model.dart';
 import 'package:smart_light/core/utilities/constants.dart';
 import 'package:smart_light/core/utilities/repository.dart';
 import 'package:smart_light/ui/screens/music.dart';
-import 'package:smart_light/ui/widgets/qrscanner.dart';
+// import 'package:smart_light/ui/widgets/qrscanner.dart';
+import 'package:smart_light/ui/components/webview.dart';
 import 'package:smart_light/ui/widgets/widgets.dart';
 
 class HomeView extends StatefulWidget {
@@ -54,12 +55,12 @@ class _HomeViewState extends State<HomeView> {
                 break;
               case 1:
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => QRScanner(
-                          onvalueChanged: (value) {
-                            model.changeLocalAddress(value);
-                            model.changeIconSelected(-1);
-                          },
-                        )));
+                    builder: (context) => WebviewWifi()));
+                // Navigator.of(context)
+                //     .pushNamed(WebviewWifi.routeName)
+                //     .whenComplete(() {
+                //   model.changeIconSelected(-1);
+                // });
                 break;
               case 2:
                 showDialog(

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void setColor(Color color, BuildContext context, String hostAddress) async {
-  if (hostAddress == "") return;
-
   try {
-    var res = await http.put(
+    await http.put(
       Uri.http('$hostAddress', '/api/led/color'),
       body: {
         "red": color.red.toString(),
@@ -25,10 +23,8 @@ void setBrightness(
   BuildContext context,
   String hostAddress,
 ) async {
-  if (hostAddress == "") return;
-
   try {
-    var res = await http.put(
+    await http.put(
       Uri.http('$hostAddress', '/api/led/brightness'),
       body: {
         "brightness": brightness.toString(),
