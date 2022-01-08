@@ -66,6 +66,7 @@
         $example->disconnect();
     } catch (Exception $e) {
         //
+        var_dump($e);
     }
     ?>
 </body>
