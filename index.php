@@ -61,7 +61,11 @@
     $example = new Example();
     try {
         $example->device = 'en0';
+
+        echo "Get all wifi ...\n";
         $example->getAllNetworks();
+
+        echo "Connecting ...\n";
         $example->connect('Anh Viet', '00000000');
         $example->disconnect();
     } catch (Exception $e) {
