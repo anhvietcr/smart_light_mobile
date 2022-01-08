@@ -28,6 +28,7 @@
 
             foreach ($networks as $network) {
                 echo $network . "\n";
+                print_f($network . "\n");
             }
         }
 
