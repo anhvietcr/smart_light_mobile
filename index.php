@@ -66,7 +66,9 @@
         $example->disconnect();
     } catch (Exception $e) {
         //
+        echo '<pre>';
         var_dump($e);
+        echo '</pre>';
     }
     ?>
 </body>
