@@ -1,0 +1,5 @@
+{
+    "require": {
+        "sanchescom/php-wifi": "^0.5.3"
+    }
+}
