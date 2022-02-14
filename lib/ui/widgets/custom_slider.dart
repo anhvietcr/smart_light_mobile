@@ -44,7 +44,7 @@ class _CustomSliderState extends State<CustomSlider> {
           model.changeBrightness(value);
         },
         onChangeEnd: (value) {
-          setBrightness(value.toInt(), context, model.localAddress);
+          setBrightness(value.toInt());
         },
       ),
     );

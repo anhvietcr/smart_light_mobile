@@ -2,6 +2,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_light/ui/screens/screens.dart';
 
 class QRScanner extends StatefulWidget {
   final ValueChanged<String> onvalueChanged;
@@ -79,7 +80,9 @@ class _QRScannerState extends State<QRScanner> {
 
       if (firsttime) {
         widget.onvalueChanged('${scanData.code}');
-        Navigator.pop(context);
+        // Navigator.pop(context);
+
+        Navigator.of(context).pushNamed(WifiScreen.routeName);
         setState(() {
           firsttime = false;
         });

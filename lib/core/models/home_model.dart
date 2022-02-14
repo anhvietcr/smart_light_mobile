@@ -42,7 +42,8 @@ class HomeModel extends ChangeNotifier {
   }
 
 
-  String _localAddress = "139.59.255.148:3500";
+  // String _localAddress = "139.59.255.148:3500";
+  String _localAddress = "";
   String get localAddress => _localAddress;
   void changeLocalAddress(String address) {
     setState(ViewState.Busy);

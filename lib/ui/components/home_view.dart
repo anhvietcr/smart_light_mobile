@@ -3,9 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:smart_light/core/models/home_model.dart';
 import 'package:smart_light/core/utilities/constants.dart';
 import 'package:smart_light/core/utilities/repository.dart';
-import 'package:smart_light/ui/screens/music.dart';
-// import 'package:smart_light/ui/widgets/qrscanner.dart';
-import 'package:smart_light/ui/components/webview.dart';
+import 'package:smart_light/ui/screens/screens.dart';
+import 'package:smart_light/ui/widgets/qrscanner.dart';
 import 'package:smart_light/ui/widgets/widgets.dart';
 
 class HomeView extends StatefulWidget {
@@ -55,12 +54,12 @@ class _HomeViewState extends State<HomeView> {
                 break;
               case 1:
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => WebviewWifi()));
-                // Navigator.of(context)
-                //     .pushNamed(WebviewWifi.routeName)
-                //     .whenComplete(() {
-                //   model.changeIconSelected(-1);
-                // });
+                    builder: (context) => QRScanner(
+                          onvalueChanged: (value) {
+                            model.changeLocalAddress(value);
+                            model.changeIconSelected(-1);
+                          },
+                        )));
                 break;
               case 2:
                 showDialog(
@@ -72,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
                     );
                   },
                 ).then((val) {
-                  setColor(model.currentColor, context, model.localAddress);
+                  setColor(model.currentColor);
 
                   Future.delayed(const Duration(milliseconds: 300), () {
                     model.changeIconSelected(-1);
@@ -105,8 +104,8 @@ class _HomeViewState extends State<HomeView> {
             style: TextStyles.style.copyWith());
         break;
       case 1:
-        subText = Text("${model.localAddress}",
-            style: TextStyles.style.copyWith(fontSize: 9));
+        // subText = Text("${model.localAddress}",
+        //     style: TextStyles.style.copyWith(fontSize: 9));
         borderRaidus = BorderRadius.only(topRight: Radius.circular(15.0));
         customWidget = ClipOval(
           child: Container(
