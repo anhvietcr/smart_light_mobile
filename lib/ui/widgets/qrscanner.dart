@@ -1,8 +1,10 @@
+import 'package:flutter/services.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_light/ui/screens/screens.dart';
+import 'package:wifi_iot/wifi_iot.dart';
 
 class QRScanner extends StatefulWidget {
   final ValueChanged<String> onvalueChanged;
@@ -35,12 +37,6 @@ class _QRScannerState extends State<QRScanner> {
       body: Stack(
         children: [
           _buildQrView(context),
-          Center(
-            child: Text(
-              resultext,
-              style: TextStyle(color: Colors.red, fontSize: 15),
-            ),
-          )
         ],
       ),
     );
@@ -70,7 +66,7 @@ class _QRScannerState extends State<QRScanner> {
     setState(() {
       this.controller = controller;
     });
-    controller.scannedDataStream.listen((scanData) {
+    controller.scannedDataStream.listen((scanData) async {
       setState(() {
         resultext = '${scanData.code}';
         result = scanData;
@@ -82,12 +78,34 @@ class _QRScannerState extends State<QRScanner> {
         widget.onvalueChanged('${scanData.code}');
         // Navigator.pop(context);
 
-        Navigator.of(context).pushNamed(WifiScreen.routeName);
+        String resultQrcode = scanData.code ?? "";
+        String ssid = resultQrcode.trim().split('-')[0];
+        String pwd = resultQrcode.trim().split('-')[1];
+
+        var isConnected = await WiFiForIoTPlugin.connect("$ssid",
+            security: NetworkSecurity.WPA, password: "$pwd");
+
+        print("isConnected $isConnected");
+        if (isConnected) {
+          Navigator.of(context).pushNamed(WifiScreen.routeName);
+        }
+
         setState(() {
           firsttime = false;
         });
       }
     });
+  }
+
+  Future<List<WifiNetwork>> loadWifiList() async {
+    List<WifiNetwork> htResultNetwork;
+    try {
+      htResultNetwork = await WiFiForIoTPlugin.loadWifiList();
+    } on PlatformException {
+      htResultNetwork = List<WifiNetwork>.empty();
+    }
+
+    return htResultNetwork;
   }
 
   @override
