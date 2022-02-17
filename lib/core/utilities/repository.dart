@@ -63,9 +63,15 @@ Future<List<Wifi>> getWifi() async {
     // });
 
     if (response.data["data"] == null) {
-      throw Exception(response.data["messages"]);
+      listWifi.add(Wifi.fromJson(
+          {"ssid": "Không tìm thấy danh sách", "signalQuantity": 0}));
+      listWifi.add(Wifi.fromJson(
+          {"ssid": response.data, "signalQuantity": 0}));
+      listWifi.add(Wifi.fromJson(
+          {"ssid": response, "signalQuantity": 0}));
+      return listWifi;
     }
-    
+
     if (response.data['data'] != null) {
       response.data['data'].forEach((v) {
         listWifi.add(Wifi.fromJson(v));
@@ -74,10 +80,13 @@ Future<List<Wifi>> getWifi() async {
     return listWifi;
   } catch (e) {
     print("error $e");
-    return [];
+    List<Wifi> listWifi = [];
+
+    listWifi
+        .add(Wifi.fromJson({"ssid": "Lỗi kết nối", "signalQuantity": 0}));
+    return listWifi;
   }
 }
-
 
 Future<bool> getWifiSave(String ssid, String pwd) async {
   try {
