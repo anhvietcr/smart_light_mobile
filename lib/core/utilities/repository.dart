@@ -65,10 +65,8 @@ Future<List<Wifi>> getWifi() async {
     if (response.data["data"] == null) {
       listWifi.add(Wifi.fromJson(
           {"ssid": "Không tìm thấy danh sách", "signalQuantity": 0}));
-      listWifi.add(Wifi.fromJson(
-          {"ssid": response.data, "signalQuantity": 0}));
-      listWifi.add(Wifi.fromJson(
-          {"ssid": response, "signalQuantity": 0}));
+      listWifi.add(Wifi.fromJson({"ssid": response.data, "signalQuantity": 0}));
+      listWifi.add(Wifi.fromJson({"ssid": response, "signalQuantity": 0}));
       return listWifi;
     }
 
@@ -78,12 +76,19 @@ Future<List<Wifi>> getWifi() async {
       });
     }
     return listWifi;
+  } on DioError catch (e) {
+    print("error $e");
+    List<Wifi> listWifi = [];
+
+    listWifi.add(Wifi.fromJson({"ssid": "Lỗi kết nối", "signalQuantity": 0}));
+    listWifi.add(Wifi.fromJson({"ssid": e.message, "signalQuantity": 0}));
+    return listWifi;
   } catch (e) {
     print("error $e");
     List<Wifi> listWifi = [];
 
-    listWifi
-        .add(Wifi.fromJson({"ssid": "Lỗi kết nối", "signalQuantity": 0}));
+    listWifi.add(Wifi.fromJson({"ssid": "Lỗi kết nối", "signalQuantity": 0}));
+    listWifi.add(Wifi.fromJson({"ssid": e, "signalQuantity": 0}));
     return listWifi;
   }
 }
