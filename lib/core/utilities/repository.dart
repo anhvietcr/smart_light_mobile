@@ -54,9 +54,9 @@ Future<List<Wifi>> getWifi() async {
     List<Wifi> listWifi = [];
 
     // var d = [
-    //   {"ssid": "Viettran 2.4G", "signalQuantity": 100},
-    //   {"ssid": "VNPT-Van Thuyen", "signalQuantity": 38},
-    //   {"ssid": "VNPT-Quynh nhu", "signalQuantity": 28}
+    //   {"ssid": "Viettran 2.4G", "signalQuantity": "100"},
+    //   {"ssid": "VNPT-Van Thuyen", "signalQuantity": "38"},
+    //   {"ssid": "VNPT-Quynh nhu", "signalQuantity": "28"}
     // ];
     // d.forEach((element) {
     //   listWifi.add(Wifi.fromJson(element));
@@ -64,12 +64,12 @@ Future<List<Wifi>> getWifi() async {
 
     if (response.data["data"] == null) {
       listWifi.add(Wifi.fromJson(
-          {"ssid": "Không tìm thấy danh sách", "signalQuantity": 0}));
-      listWifi.add(Wifi.fromJson({"ssid": response.data, "signalQuantity": 0}));
-      listWifi.add(Wifi.fromJson({"ssid": response, "signalQuantity": 0}));
+          {"ssid": "Không tìm thấy danh sách", "signalQuantity": "0"}));
       return listWifi;
     }
 
+    listWifi
+        .add(Wifi.fromJson({"ssid": response.data, "signalQuantity": "100"}));
     if (response.data['data'] != null) {
       response.data['data'].forEach((v) {
         listWifi.add(Wifi.fromJson(v));
@@ -80,14 +80,15 @@ Future<List<Wifi>> getWifi() async {
     print("error $e");
     List<Wifi> listWifi = [];
 
-    listWifi.add(Wifi.fromJson({"ssid": "Lỗi kết nối", "signalQuantity": 0}));
-    listWifi.add(Wifi.fromJson({"ssid": e.message, "signalQuantity": 0}));
+    listWifi.add(Wifi.fromJson({"ssid": "Lỗi kết nối", "signalQuantity": "0"}));
+    listWifi.add(Wifi.fromJson({"ssid": e.message, "signalQuantity": "0"}));
     return listWifi;
   } catch (e) {
     print("error $e");
     List<Wifi> listWifi = [];
 
-    listWifi.add(Wifi.fromJson({"ssid": "Lỗi kết nối - catch", "signalQuantity": 0}));
+    listWifi.add(
+        Wifi.fromJson({"ssid": "Lỗi kết nối - catch", "signalQuantity": 0}));
     listWifi.add(Wifi.fromJson({"ssid": e, "signalQuantity": 0}));
     return listWifi;
   }

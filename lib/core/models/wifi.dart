@@ -1,6 +1,6 @@
 class Wifi {
   late String ssid;
-  late int quantity;
+  late String quantity;
 
   Wifi({
     required this.ssid,
@@ -9,6 +9,6 @@ class Wifi {
 
   Wifi.fromJson(Map<String, dynamic> json) {
     ssid = json['ssid'] ?? "#";
-    quantity = json['signalQuantity'] ?? 0;
+    quantity = json['signalQuantity'] ?? "0";
   }
 }
