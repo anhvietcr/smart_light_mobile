@@ -21,9 +21,18 @@ class _WifiScreenState extends State<WifiScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var items = [];
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Danh sách WIFI"),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                setState(() {});
+              },
+              icon: Icon(Icons.refresh))
+        ],
       ),
       body: FutureBuilder<List<Wifi>>(
         future: getWifi(),
@@ -34,7 +43,7 @@ class _WifiScreenState extends State<WifiScreen> {
             );
           }
 
-          var items = snapshot.data ?? [];
+          items = snapshot.data ?? [];
 
           return Container(
             child: ListView.builder(

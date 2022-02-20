@@ -87,7 +87,7 @@ Future<List<Wifi>> getWifi() async {
     print("error $e");
     List<Wifi> listWifi = [];
 
-    listWifi.add(Wifi.fromJson({"ssid": "Lỗi kết nối", "signalQuantity": 0}));
+    listWifi.add(Wifi.fromJson({"ssid": "Lỗi kết nối - catch", "signalQuantity": 0}));
     listWifi.add(Wifi.fromJson({"ssid": e, "signalQuantity": 0}));
     return listWifi;
   }
