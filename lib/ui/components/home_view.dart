@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_light/core/models/home_model.dart';
 import 'package:smart_light/core/utilities/constants.dart';
@@ -37,7 +38,7 @@ class _HomeViewState extends State<HomeView> {
             const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0, top: 8.0),
         child: GestureDetector(
           child: _buildContainer(index, context, services[index], model),
-          onTap: () {
+          onTap: () async {
             if (model.localAddress == "") {
               if (index == 0 || index == 2) {
                 final snackBar = SnackBar(
@@ -53,13 +54,23 @@ class _HomeViewState extends State<HomeView> {
               case 0:
                 break;
               case 1:
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => QRScanner(
-                          onvalueChanged: (value) {
-                            model.changeLocalAddress(value);
-                            model.changeIconSelected(-1);
-                          },
-                        )));
+                await [
+                  Permission.location,
+                ].request();
+                if (await Permission
+                    .locationWhenInUse.serviceStatus.isEnabled) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => QRScanner(
+                            onvalueChanged: (value) {
+                              model.changeLocalAddress(value);
+                              model.changeIconSelected(-1);
+                            },
+                          )));
+                } else {
+                  final snackBar = SnackBar(
+                      content: const Text('Trước tiên hãy mở định vị'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
                 break;
               case 2:
                 showDialog(

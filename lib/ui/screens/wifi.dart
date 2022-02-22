@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:smart_light/core/models/wifi.dart';
 import 'package:smart_light/core/utilities/repository.dart';
 import 'package:smart_light/ui/screens/home.dart';
+import 'package:wifi_iot/wifi_iot.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class WifiScreen extends StatefulWidget {
   static const String routeName = "/wifi";
@@ -13,29 +16,42 @@ class WifiScreen extends StatefulWidget {
 class _WifiScreenState extends State<WifiScreen> {
   final ssidController = TextEditingController();
   final pwdController = TextEditingController();
+  bool isScanning = true;
+  List<WifiNetwork> networks = [];
 
   @override
   initState() {
     super.initState();
   }
 
+  Future<List<WifiNetwork>> loadWifiList() async {
+    List<WifiNetwork> htResultNetwork;
+
+    print("waiting...");
+    try {
+      htResultNetwork = await WiFiForIoTPlugin.loadWifiList();
+    } catch (e) {
+      htResultNetwork = <WifiNetwork>[];
+    }
+    return htResultNetwork;
+  }
+
   @override
   Widget build(BuildContext context) {
     var items = [];
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Danh sách WIFI"),
         actions: <Widget>[
           IconButton(
-              onPressed: () {
+              onPressed: () async {
                 setState(() {});
               },
               icon: Icon(Icons.refresh))
         ],
       ),
-      body: FutureBuilder<List<Wifi>>(
-        future: getWifi(),
+      body: FutureBuilder<List<WifiNetwork>>(
+        future: loadWifiList(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -152,15 +168,16 @@ class _WifiScreenState extends State<WifiScreen> {
                           style: TextStyle(fontSize: 16.0),
                         ),
                       ),
-                      trailing: new Column(
-                        children: <Widget>[
-                          new IconButton(
-                              icon: new Icon(items[idx].quantity >= 50
-                                  ? Icons.wifi
-                                  : Icons.signal_wifi_0_bar_rounded),
-                              onPressed: () {}),
-                        ],
-                      ),
+                      // trailing: new Column(
+                      //   children: <Widget>[
+                      //     new IconButton(
+                      //         icon: new Icon(
+                      //             int.parse(items[idx].quantity) >= 50
+                      //                 ? Icons.wifi
+                      //                 : Icons.signal_wifi_0_bar_rounded),
+                      //         onPressed: () {}),
+                      //   ],
+                      // ),
                     ),
                   ),
                 );

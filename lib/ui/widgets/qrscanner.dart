@@ -82,8 +82,16 @@ class _QRScannerState extends State<QRScanner> {
         String ssid = resultQrcode.trim().split('-')[0];
         String pwd = resultQrcode.trim().split('-')[1];
 
-        var isConnected = await WiFiForIoTPlugin.connect("$ssid",
-            security: NetworkSecurity.WPA, password: "$pwd");
+        await WiFiForIoTPlugin.removeWifiNetwork('$ssid');
+        var isConnected = await WiFiForIoTPlugin.connect(
+          "$ssid",
+          password: "$pwd",
+          security: NetworkSecurity.WPA,
+          withInternet: true,
+        );
+        // await WiFiForIoTPlugin.registerWifiNetwork(ssid, password: pwd, security: NetworkSecurity.WPA);
+
+        await WiFiForIoTPlugin.forceWifiUsage(true);
 
         print("isConnected $isConnected");
         if (isConnected) {
