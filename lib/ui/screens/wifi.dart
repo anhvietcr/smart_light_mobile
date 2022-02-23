@@ -50,8 +50,10 @@ class _WifiScreenState extends State<WifiScreen> {
               icon: Icon(Icons.refresh))
         ],
       ),
-      body: FutureBuilder<List<WifiNetwork>>(
-        future: loadWifiList(),
+      // body: FutureBuilder<List<WifiNetwork>>(
+        // future: loadWifiList(),
+      body: FutureBuilder<List<Wifi>>(
+        future: getWifi(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
