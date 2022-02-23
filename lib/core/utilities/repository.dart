@@ -58,8 +58,8 @@ Future<List<Wifi>> getWifi() async {
     List<Wifi> listWifi = [];
 
     if (response.statusCode == 200) {
-      listWifi
-        .add(Wifi.fromJson({"ssid": response.body, "signalQuantity": "100"}));
+      // listWifi
+      //   .add(Wifi.fromJson({"ssid": response.body.toString(), "signalQuantity": "100"}));
       listWifi
         .add(Wifi.fromJson({"ssid": json.decode(response.body), "signalQuantity": "100"}));
     // if (json.decode(response.body.) != null) {
