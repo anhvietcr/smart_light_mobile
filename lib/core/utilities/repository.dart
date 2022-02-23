@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_light/core/models/wifi.dart';
 
 String _hostAddress = "139.59.255.148:3500";
+String _espAddress = "192.168.4.1";
 
 Dio get dio {
   return Dio(BaseOptions());
@@ -45,13 +48,30 @@ void setBrightness(
 
 Future<List<Wifi>> getWifi() async {
   try {
-    Response response = await dio.get(
-      'http://192.168.4.1/wifi',
-    );
-    dio.clear();
-    dio.close();
+    http.Response response = await http.get(Uri.http('$_espAddress', '/wifi'));
+    // Response response = await dio.get(
+    //   'http://192.168.4.1/wifi',
+    // );
+    // dio.clear();
+    // dio.close();
 
     List<Wifi> listWifi = [];
+
+    if (response.statusCode == 200) {
+      listWifi
+        .add(Wifi.fromJson({"ssid": response.body, "signalQuantity": "100"}));
+      listWifi
+        .add(Wifi.fromJson({"ssid": json.decode(response.body), "signalQuantity": "100"}));
+    // if (json.decode(response.body.) != null) {
+    //   response.body['data'].forEach((v) {
+    //     listWifi.add(Wifi.fromJson(v));
+    //   });
+    // }
+    }
+    else {
+      listWifi.add(Wifi.fromJson(
+          {"ssid": "Không tìm thấy danh sách", "signalQuantity": "0"}));
+    }
 
     // var d = [
     //   {"ssid": "Viettran 2.4G", "signalQuantity": "100"},
@@ -62,19 +82,19 @@ Future<List<Wifi>> getWifi() async {
     //   listWifi.add(Wifi.fromJson(element));
     // });
 
-    if (response.data["data"] == null) {
-      listWifi.add(Wifi.fromJson(
-          {"ssid": "Không tìm thấy danh sách", "signalQuantity": "0"}));
-      return listWifi;
-    }
+    // if (response.data["data"] == null) {
+    //   listWifi.add(Wifi.fromJson(
+    //       {"ssid": "Không tìm thấy danh sách", "signalQuantity": "0"}));
+    //   return listWifi;
+    // }
 
-    listWifi
-        .add(Wifi.fromJson({"ssid": response.data, "signalQuantity": "100"}));
-    if (response.data['data'] != null) {
-      response.data['data'].forEach((v) {
-        listWifi.add(Wifi.fromJson(v));
-      });
-    }
+    // listWifi
+    //     .add(Wifi.fromJson({"ssid": response.data, "signalQuantity": "100"}));
+    // if (response.data['data'] != null) {
+    //   response.data['data'].forEach((v) {
+    //     listWifi.add(Wifi.fromJson(v));
+    //   });
+    // }
     return listWifi;
   } on DioError catch (e) {
     print("error $e");
