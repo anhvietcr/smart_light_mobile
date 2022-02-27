@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smart_light/ui/components/home_view.dart';
-import 'package:smart_light/ui/components/header_view.dart';
-import 'package:smart_light/ui/components/footer_view.dart';
+import 'package:esp_touch_flutter_example/ui/components/home_view.dart';
+import 'package:esp_touch_flutter_example/ui/components/header_view.dart';
+import 'package:esp_touch_flutter_example/ui/components/footer_view.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/";

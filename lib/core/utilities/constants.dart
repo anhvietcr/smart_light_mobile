@@ -11,8 +11,8 @@ class TextStyles {
 
 class Service {
   Service({
-    required this.name,
-    required this.icon,
+    this.name,
+    this.icon,
     this.status = false,
   });
   String name;

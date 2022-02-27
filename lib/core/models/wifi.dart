@@ -1,10 +1,10 @@
 class Wifi {
-  late String ssid;
-  late String quantity;
+  String ssid;
+  String quantity;
 
   Wifi({
-    required this.ssid,
-    required this.quantity,
+    this.ssid,
+    this.quantity,
   });
 
   Wifi.fromJson(Map<String, dynamic> json) {

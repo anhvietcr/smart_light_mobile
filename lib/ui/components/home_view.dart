@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_light/core/models/home_model.dart';
-import 'package:smart_light/core/utilities/constants.dart';
-import 'package:smart_light/core/utilities/repository.dart';
-import 'package:smart_light/ui/screens/screens.dart';
-import 'package:smart_light/ui/widgets/qrscanner.dart';
-import 'package:smart_light/ui/widgets/widgets.dart';
+import 'package:esp_touch_flutter_example/core/models/home_model.dart';
+import 'package:esp_touch_flutter_example/core/utilities/constants.dart';
+import 'package:esp_touch_flutter_example/core/utilities/repository.dart';
+import 'package:esp_touch_flutter_example/ui/screens/screens.dart';
+import 'package:esp_touch_flutter_example/ui/widgets/widgets.dart';
 
 class HomeView extends StatefulWidget {
   static const String routeName = "/service/home";
@@ -27,6 +26,11 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  _displaySnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(content: Text(message));
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
   List<Padding> _buildHomeServiceMenu(BuildContext context) {
     final model = Provider.of<HomeModel>(context);
 
@@ -41,9 +45,8 @@ class _HomeViewState extends State<HomeView> {
           onTap: () async {
             if (model.localAddress == "") {
               if (index == 0 || index == 2) {
-                final snackBar = SnackBar(
-                    content: const Text('Trước tiên hãy kết nối Wifi !'));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                _displaySnackBar(context, 'Trước tiên hãy kết nối Wifi !');
+
                 return;
               }
             }
@@ -59,17 +62,16 @@ class _HomeViewState extends State<HomeView> {
                 ].request();
                 if (await Permission
                     .locationWhenInUse.serviceStatus.isEnabled) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => QRScanner(
-                            onvalueChanged: (value) {
-                              model.changeLocalAddress(value);
-                              model.changeIconSelected(-1);
-                            },
-                          )));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => QRScanner(
+                  //           onvalueChanged: (value) {
+                  //             model.changeLocalAddress(value);
+                  //             model.changeIconSelected(-1);
+                  //           },
+                  //         )));
+                  Navigator.of(context).pushNamed(WifiScreen.routeName);
                 } else {
-                  final snackBar = SnackBar(
-                      content: const Text('Trước tiên hãy mở định vị'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  _displaySnackBar(context, 'Trước tiên hãy mở định vị');
                 }
                 break;
               case 2:

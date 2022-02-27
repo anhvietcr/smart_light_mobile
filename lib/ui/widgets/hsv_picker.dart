@@ -3,15 +3,15 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class HSVColorPicker extends StatefulWidget {
   const HSVColorPicker({
-    Key? key,
-    required this.pickerColor,
-    required this.onColorChanged,
+    Key key,
+    this.pickerColor,
+    this.onColorChanged,
     this.colorHistory,
   }) : super(key: key);
 
   final Color pickerColor;
   final ValueChanged<Color> onColorChanged;
-  final List<Color>? colorHistory;
+  final List<Color> colorHistory;
 
   @override
   State<HSVColorPicker> createState() => _HSVColorPickerState();
@@ -19,10 +19,9 @@ class HSVColorPicker extends StatefulWidget {
 
 class _HSVColorPickerState extends State<HSVColorPicker> {
   // Picker
-  PaletteType _paletteType = PaletteType.hueWheel;
+  PaletteType _paletteType = PaletteType.rgb;
   bool _enableAlpha = false;
   bool _displayThumbColor = true;
-  bool _displayHexInputBar = false;
 
   @override
   void dispose() {
@@ -52,10 +51,8 @@ class _HSVColorPickerState extends State<HSVColorPicker> {
           colorPickerWidth: MediaQuery.of(context).size.width,
           pickerAreaHeightPercent: 0.7,
           enableAlpha: _enableAlpha,
-          labelTypes: [],
           displayThumbColor: _displayThumbColor,
           paletteType: _paletteType,
-          hexInputBar: _displayHexInputBar,
         ),
       ),
     );

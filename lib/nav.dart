@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:flutter/widgets.dart";
-import 'package:smart_light/ui/screens/screens.dart';
+import 'ui/screens/screens.dart';
 
 Route onGenerateRoute(RouteSettings settings) {
   Widget widget;

@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class HeaderView extends StatelessWidget {
   const HeaderView({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override

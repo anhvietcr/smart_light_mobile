@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_light/core/models/home_model.dart';
-import 'package:smart_light/core/utilities/repository.dart';
+import 'package:esp_touch_flutter_example/core/models/home_model.dart';
+import 'package:esp_touch_flutter_example/core/utilities/repository.dart';
 
 class CustomSlider extends StatefulWidget {
-  const CustomSlider({Key? key}) : super(key: key);
+  const CustomSlider({Key key}) : super(key: key);
 
   @override
   State<CustomSlider> createState() => _CustomSliderState();

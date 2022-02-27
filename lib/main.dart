@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_light/ui/screens/home.dart';
-import 'package:smart_light/core/models/home_model.dart';
-import 'package:smart_light/core/utilities/hex_color.dart';
+import 'package:esp_touch_flutter_example/ui/screens/home.dart';
+import 'package:esp_touch_flutter_example/core/models/home_model.dart';
+import 'package:esp_touch_flutter_example/core/utilities/hex_color.dart';
 import 'package:flutter/services.dart';
 import 'nav.dart';
 

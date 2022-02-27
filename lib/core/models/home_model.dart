@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:smart_light/core/utilities/enum.dart';
-import 'package:smart_light/core/utilities/hex_color.dart';
+import 'package:esp_touch_flutter_example/core/utilities/enum.dart';
+import 'package:esp_touch_flutter_example/core/utilities/hex_color.dart';
 
 class HomeModel extends ChangeNotifier {
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_light/core/models/home_model.dart';
-import 'package:smart_light/core/utilities/constants.dart';
-import 'package:smart_light/ui/widgets/widgets.dart';
+import 'package:esp_touch_flutter_example/core/models/home_model.dart';
+import 'package:esp_touch_flutter_example/core/utilities/constants.dart';
+import 'package:esp_touch_flutter_example/ui/widgets/widgets.dart';
 
 class FooterView extends StatefulWidget {
   @override
@@ -66,7 +66,7 @@ class _FooterViewState extends State<FooterView> {
                     ),
                     Expanded(child: CustomSlider()),
                     GestureDetector(
-                      child: Icon(Icons.light_mode_outlined),
+                      child: Icon(Icons.lightbulb_outline),
                       onTap: () {
                         model.changeBrightness(100.0);
                       },
