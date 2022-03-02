@@ -69,7 +69,15 @@ class _HomeViewState extends State<HomeView> {
                   //             model.changeIconSelected(-1);
                   //           },
                   //         )));
-                  Navigator.of(context).pushNamed(WifiScreen.routeName);
+
+                   Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => WifiScreen(
+                            onvalueChanged: (value) {
+                              model.changeLocalAddress(value);
+                              model.changeIconSelected(-1);
+                            },
+                          )));
+                  // Navigator.of(context).pushNamed(WifiScreen.routeName);
                 } else {
                   _displaySnackBar(context, 'Trước tiên hãy mở định vị');
                 }

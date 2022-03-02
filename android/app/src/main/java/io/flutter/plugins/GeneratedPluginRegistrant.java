@@ -3,6 +3,7 @@ package io.flutter.plugins;
 import io.flutter.plugin.common.PluginRegistry;
 import dev.fluttercommunity.plus.device_info.DeviceInfoPlusPlugin;
 import com.baseflow.permissionhandler.PermissionHandlerPlugin;
+import com.alternadom.wifiiot.WifiIotPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -14,6 +15,7 @@ public final class GeneratedPluginRegistrant {
     }
     DeviceInfoPlusPlugin.registerWith(registry.registrarFor("dev.fluttercommunity.plus.device_info.DeviceInfoPlusPlugin"));
     PermissionHandlerPlugin.registerWith(registry.registrarFor("com.baseflow.permissionhandler.PermissionHandlerPlugin"));
+    WifiIotPlugin.registerWith(registry.registrarFor("com.alternadom.wifiiot.WifiIotPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
